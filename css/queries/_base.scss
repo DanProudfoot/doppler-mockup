@@ -1,0 +1,328 @@
+$unit: 3.5rem;
+$sb: $unit * 4;
+$sbpush: $sb + 1;
+$shadow: rgba(40, 40, 40, 0.4)0 3px 10px 2px;
+$border-green: solid 0.125rem $bright-green;
+
+
+.flex{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+img{
+	max-width: 100%;
+}
+
+a{
+	color: inherit;
+	text-decoration: none;
+}
+
+
+*{
+	font-family: $roboto;
+}
+
+.light-text{
+	color: $light-grey;
+}
+
+.dark-text{
+	color: black;
+}
+
+.center-80{
+	justify-content:center;
+
+	&>*{
+		flex: 0 80%;
+	}
+}
+
+.h_holder{
+	width: 100%;
+	background-color: rgba(lighten($dark-green,10%),$trans);
+}
+
+h1{
+	font-size: 2rem;
+	font-weight: 300;
+	padding: 0.75rem 0;
+}
+
+body, html{
+	height: 100%;
+	font-size: 100%;
+}
+
+header{
+	width: 100%;
+	position: fixed;
+	border-bottom: $border-green;
+	z-index: 20;
+	font-weight: 300;
+
+	.logo{
+		width: $sb;
+		flex: 0 $sb;
+		border-right: $border-green;
+		justify-content: center;
+		align-items: center;
+
+		img{
+			width: 4rem;
+			margin-right: 0.5rem;
+
+		}
+
+		span{
+			color: $bright-green;
+			font-size: 2rem;
+		}
+	}
+
+	.search_bar{
+		flex: 1;
+		padding: 0.5rem 0;
+		justify-content: center;
+
+		input{
+			border: none;
+			font-size: 1.25rem;
+			padding: 0.5rem 2rem;
+			font-weight: inherit;
+			width: 60%;
+			box-shadow: $shadow;
+		}
+	}
+
+}
+
+nav{
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: $sb;
+	background-color: rgba(black,$trans);
+	border-right: $border-green;
+	z-index: 15;
+	padding-top: 2 * $unit;
+
+	ul{
+
+		li{
+			color: $light-grey;
+			font-size: 1.25rem;
+			font-weight: 300;
+			padding: 0.5rem 0 0.5rem 1rem;
+
+
+			&.current{
+				background-color: rgba($bright-green,1);
+			}
+
+			&:hover{
+				background-color: rgba($mid-green-1,1);
+			}
+		}
+
+		.has-children:after{
+			content:"";
+		}
+
+		ul {
+			padding: 0.5rem 0;
+
+			li{
+				padding-left: 2rem;
+				font-size: 1.1rem;
+			}
+		}
+	}
+
+	.now_playing_cover{
+		width: $sb;
+		height: $sb;
+		bottom: 0;
+		position: absolute;
+	}
+}
+
+.bottom_bar{
+	z-index: 10;
+	width: 100%;
+	border-top: $border-green;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: $unit;
+	background-color: rgba(black,0.9);
+
+	.now_playing-title{
+		flex:1;
+		padding-left: $sbpush;
+		color: $light-grey;
+		font-size: 1.25rem;
+		font-weight: 300;
+		align-items: center;
+
+		.now_playing-song{
+
+		}
+
+		.now_playing-artist{
+
+		}
+	}
+
+	.controls{
+		flex: 0 $unit * 6;
+		border-left: $border-green;
+		justify-content: space-around;
+		align-items: center;
+		padding: 0 2rem;
+		
+	}
+}
+
+main{
+
+	background-color: $bg-grey;
+	width: 100%;
+	min-height: 100vh;
+	padding: 0 0 $unit $sb;
+
+	.rec-hero-bg{
+		width: 100%;
+		position: relative;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+
+	}
+	
+	.recommend-top{
+		width: 100%;
+		//background-color: rgba($mid-green-2,1);
+		border-bottom: $border-green;
+
+		.rec-hero{
+			width: 100%;
+			padding: $unit * 2 0 $unit / 2;
+			min-height: $unit * 8;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+	}
+
+	.recommend-second{
+		width: 100%;
+		padding: $unit / 2 0;
+		background-color: rgba($dark-green,$trans);
+	}
+
+	.hero-sub-controls{
+
+	}
+
+}
+
+.cover_list{
+	width: 100%;
+	padding: $unit 0;
+	
+	.cover_container{
+		flex: 0 80%;
+		
+	}
+}
+
+.album{
+	box-shadow: $shadow;
+
+	.album_image{
+		
+		img{
+			display: block;
+		}
+	}
+
+	.album_info{
+
+		padding: 0.5rem;
+
+		.album_name{
+			font-size: 1.25rem;
+			padding-bottom: 0.5rem
+		}
+	}
+}
+
+.album-light{
+
+	.album_info{
+		color:$light-grey;
+		background-color: $bright-green;
+	}
+}
+
+.album-dark{
+
+	.album_info{
+		color:$light-grey;
+		background-color: $mid-green-2;
+	}
+}
+
+.row-5{
+
+	>div{
+		margin: 0 0.5rem;
+		flex: 1 18%;
+		min-width: 10rem;
+		max-width: calc(20% - 2rem);
+		margin-bottom: 1rem;
+	}
+}
+
+.icon{
+	height: 2.5rem;
+	width: 2.5rem;
+	position: relative;
+
+	&:before{
+		content: "";
+		height: 100%;
+		width: 100%;
+		position: absolute;
+	}
+}
+
+.icon-play:before{
+	background-image: url(../../media/icons/play.svg);
+}
+
+.icon-pause:before{
+	background-image: url(../../media/icons/pause.svg);
+}
+
+.icon-fwd:before{
+	background-image: url(../../media/icons/fwd.svg);
+}
+
+.icon-rwd:before{
+	background-image: url(../../media/icons/rwd.svg);
+}
+
+.icon-rpt:before{
+	background-image: url(../../media/icons/rpt.svg);
+}
+
+.icon-arrow:before{
+	background-image: url(../../media/icons/play.svg);
+	height: 1rem;
+	width: 1rem;
+}

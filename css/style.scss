@@ -1,5 +1,18 @@
 @import "dev/functions";
 @import "dev/reset";
 
-@import "queries/base";
+@import url(http://fonts.googleapis.com/css?family=Roboto:300,700,400);
 
+$roboto: 'Roboto', sans-serif;
+$blue: #10445E;
+$bright-green: #26BF87;
+$mid-green-1: #0AA689;
+$mid-green-2: #048C7F;
+$dark-green: #126965;
+$light-grey: #ECECEC;
+
+$bg-grey: #2D2D2D;
+$trans: 0.5;
+
+
+@import "queries/base";
