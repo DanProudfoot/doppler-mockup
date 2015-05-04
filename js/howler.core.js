@@ -7,7 +7,7 @@
  *
  *  MIT License
  */
-
+ var loadPerc;
 (function() {
 
   'use strict';
@@ -16,6 +16,7 @@
   var ctx = null;
   var usingWebAudio = true;
   var noAudio = false;
+ 
   setupAudioContext();
 
   // Create a master gain node.
@@ -1334,6 +1335,7 @@
     init: function() {
       var self = this;
       var parent = self._parent;
+      // Expose the current load percentage
 
       // Setup the default parameters.
       self._muted = parent._muted;
@@ -1520,6 +1522,15 @@
         var xhr = new XMLHttpRequest();
         xhr.open('GET', url, true);
         xhr.responseType = 'arraybuffer';
+
+        xhr.addEventListener("progress", updateProgress, false);
+        function updateProgress (oEvent) {
+          if (oEvent.lengthComputable) {
+          loadPerc = oEvent.loaded / oEvent.total;
+          } else {
+            // Unable to compute progress information since the total size is unknown
+          }
+        }
         xhr.onload = function() {
           decodeAudioData(xhr.response, self);
         };
