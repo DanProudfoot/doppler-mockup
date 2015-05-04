@@ -7,16 +7,18 @@ var forwardButton = $('.action-fwd');
 var seekMain = $('.seek-main');
 
 var path = "music_storage/sw/hand/"
-var audioSource = ["hand.m4a","3.m4a","#9.m4a","routine.m4a"];
-var playlistPos = 3; // Position in the current playlist
+var audioSource = ["hand.m4a","3.m4a","9.m4a","routine.m4a"];
+var playlistPos = 2; // Position in the current playlist
 var minutes = 0; //Current song position minutes figure
 var seconds = 0; // Current song position seconds figure
 var duration; // Set up var for duration of current song
 var timer; // Setup up for actually tracking the duration of the song 
 
 var music = new Howl({
-	src: [path + audioSource[playlistPos]]
+	src: [path + audioSource[playlistPos]],
 })
+
+
 
 // test to see how many hardware channels we can output to
 // if it's 6 or larger, we can play a 5.1 audio stream!
@@ -30,11 +32,11 @@ else {
 Howler.ctx.destination.channelCountMode = "explicit";
 Howler.ctx.destination.channelInterpretation = "discrete";
 
-console.log(Howler.ctx.destination.channelCount);
+//console.log(Howler.ctx.destination.maxChannelCount); // Log available output channels. Firefox just doesn't heed this.
 
 pauseButton.hide();
 playButton.click(function(){
-	music.play();
+	id = music.play();
 	playButton.hide();
 	pauseButton.show();
 
@@ -45,6 +47,9 @@ pauseButton.click(function(){
 	playButton.show();
 });
 
+// setInterval(function(){
+// 	console.log(music.seek());
+// },200);
 
 music.on('play', function(){
 	timer = setInterval(function(){
@@ -56,7 +61,6 @@ music.on('play', function(){
 		}
 		$(".now_playing-elapsed").text(minutes + ":" + seconds);
 		seekMain.val(playbackPos);
-		console.log(seekMain.val())
 	}, 200);
 })
 music.on('pause',function(){

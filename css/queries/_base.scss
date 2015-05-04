@@ -69,17 +69,22 @@ header{
 		border-right: $border-green;
 		justify-content: center;
 		align-items: center;
+		user-select: none;
 
-		img{
-			width: 4rem;
-			margin-right: 0.5rem;
+		a{
+			align-items: center;
+			img{
+				width: 4rem;
+				margin-right: 0.5rem;
 
+			}
+
+			span{
+				color: $bright-green;
+				font-size: 1.8rem;
+			}
 		}
 
-		span{
-			color: $bright-green;
-			font-size: 2rem;
-		}
 	}
 
 	.search_bar{
@@ -354,14 +359,13 @@ main{
 
  .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
 	border: 1px solid #d3d3d3;
-	background: #e6e6e6 url("images/ui-bg_glass_75_e6e6e6_1x400.png") 50% 50% repeat-x;
 	font-weight: normal;
 	color: #555555;
 }
 
 .ui-widget-content {
   border: 1px solid #aaaaaa;
-  background: #ffffff url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
+
   color: #222222;
 }
 .ui-widget {
