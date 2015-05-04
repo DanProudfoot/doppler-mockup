@@ -163,7 +163,6 @@ nav{
 	.now_playing-title{
 		flex:1;
 		padding-left: $sbpush;
-		color: $light-grey;
 		font-size: 1.25rem;
 		font-weight: 300;
 		align-items: center;
@@ -173,6 +172,22 @@ nav{
 		}
 
 		.now_playing-artist{
+
+		}
+	}
+
+	.now_playing-time{
+
+		border-left: $border-green;
+		padding: 0 $unit / 2;
+		align-items: center;
+		
+
+		.now_playing-elapsed{
+			
+		}
+
+		.now_playing-total{
 
 		}
 	}

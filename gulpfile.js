@@ -2,8 +2,7 @@ var gulp = require('gulp');
 var sass = require('gulp-ruby-sass');
 var prefix = require('gulp-autoprefixer');
 var csso = require('gulp-csso');
-var imgmin = require('gulp-imagemin');
-var resize = require('gulp-image-resize');
+
 var changed = require('gulp-changed');
 var parallel = require('concurrent-transform');
 var os = require('os');

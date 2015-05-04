@@ -1,55 +1,69 @@
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
+$(document).ready(function(){
 
-audioContext = new AudioContext();
+var playButton = $('.action-play');
+var pauseButton = $('.action-pause');
+var rewindButton = $('.action-rwd');
+var forwardButton = $('.action-fwd');
 
-// test to see how many hardware channels we can output to
-// if it's 6 or larger, we can play a 5.1 audio stream!
-if (audioContext.destination.maxChannelCount >= 6) {
-	audioContext.destination.channelCount = 6;
+var path = "music_storage/sw/hand/"
+var audioSource = ["hand.m4a","3.m4a"];
+var playlistPos = 1; // Position in the current playlist
+var minutes = 0; //Current song position minutes figure
+var seconds = 0; // Current song position seconds figure
+var duration; // Set up var for duration of current song
+var timer; // Setup up for actually tracking the duration of the song 
+
+var music = new Howl({
+	src: [path + audioSource[playlistPos]]
+})
+
+
+pauseButton.hide();
+playButton.click(function(){
+	music.play();
+	playButton.hide();
+	pauseButton.show();
+
+});
+pauseButton.click(function(){
+	music.pause();
+	pauseButton.hide();
+	playButton.show();
+});
+
+
+music.on('play', function(){
+	timer = setInterval(function(){
+		var playbackPos = Math.floor(music.pos());
+		minutes = Math.floor(playbackPos / 60);
+		seconds = playbackPos % 60;
+		if (seconds < 10){
+			seconds = "0" + seconds;
+		}
+		$(".now_playing-elapsed").text(minutes + ":" + seconds);
+	}, 200);
+})
+music.on('pause',function(){
+	clearInterval(timer);
+});
+
+music.on('load', function(){
+	duration = music._duration;
+	$('.now_playing-total').text(convertToHumanTime(duration));
+
+});
+
+function convertToHumanTime(time){
+	Cminutes = Math.floor(time / 60);
+	Cseconds = Math.floor(time % 60);
+	return(Cminutes + ":" + Cseconds);
 }
-// otherwise, let's down-mix to 2.0
-else {
-	audioContext.destination.channelCount = 2;
+
+function skipTrack(direction){
+
 }
-audioContext.destination.channelCountMode = "explicit";
-audioContext.destination.channelInterpretation = "discrete";
 
-console.log(audioContext.destination.channelCount);
 
-var sound;
+});
 
-/**
- * Example 1: Load a sound
- * @param {String} src Url of the sound to be loaded.
- */
 
-function loadSound(url) {
-	var request = new XMLHttpRequest();
-	request.open('GET', url, true);
-	request.responseType = 'arraybuffer';
-
-	request.onload = function() {
-		// request.response is encoded... so decode it now
-		context.decodeAudioData(request.response, function(buffer) {
-			sound = buffer;
-		}, function(err) {
-			throw new Error(err);
-		});
-	}
-
-	request.send();
-}
-loadSound('music_storage/Steven Wilson/Hand Cannot Erase/hand.m4a');
-
-/**
- * Example 2: Play a sound
- * @param {Object} buffer AudioBuffer object - a loaded sound.
- */
-
-function playSound(buffer) {
-  var source = context.createBufferSource();
-  source.buffer = buffer;
-  source.connect(context.destination);
-  source.start(0);
-}
-playSound(sound);
