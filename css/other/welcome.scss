@@ -1,0 +1,23 @@
+@import "../dev/functions";
+@import "../dev/reset";
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:300,700,400);
+
+$roboto: 'Roboto', sans-serif;
+$blue: #10445E;
+$bright-green: #26BF87;
+$mid-green-1: #0AA689;
+$mid-green-2: #048C7F;
+$dark-green: #126965;
+$light-grey: #ECECEC;
+
+$bg-grey: #2D2D2D;
+$trans: 0.5;
+
+$unit: 3.5rem;
+$shadow: rgba(40, 40, 40, 0.4)0 3px 10px 2px;
+$border-green: solid 0.125rem $bright-green;
+$transition: all 0.3s ease-in-out;
+
+
+@import "queries/welcome_base";

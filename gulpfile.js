@@ -11,6 +11,7 @@ var notify = require('gulp-notify');
 
 var config = {
 	sass: './css/style.scss',
+	sass2: './css/other/welcome.scss',
 	hd_images: './media/hd/*.{png,jpg,jpeg}',
 	build: './css/built',
 	hd_min: './media/hd/min'
@@ -31,47 +32,23 @@ gulp.task('sass', function(){
 	;
 });
 
-// gulp.task('image-hd', function(){
-// 	return gulp.src(config.hd_images)
-// 	.pipe(changed(config.hd_min))
-// 	.pipe(parallel(
-// 		resize({
-// 			width: 2560
-// 		}),
-// 		imgmin({
-// 			progressive: true
-// 		}),
-// 		os.cpus().length
-// 	))
-// 	.pipe(rename(function(path) { path.basename += '-hd'; }))
-// 	.pipe(gulp.dest( config.hd_min));
-// });
-
-// gulp.task('image-thumbnails', function(){
-//   return gulp.src(config.images)
-//   .pipe(changed(config.build + '/assets'))
-//   .pipe(parallel(
-//     resize({
-//       width: 150,
-//       height: 150,
-//       crop: true,
-//       gravity: 'Center'
-//     }),
-//     imgmin({
-//       progressive: true
-//     }),
-//     os.cpus().length
-//   ))
-//   .pipe(rename(function(path) { path.basename += '-thumbnail'; }))
-//   .pipe(gulp.dest( config.build + '/assets'));
-// });
-
-gulp.task('images', ['image-hd']);
-
-// gulp.task('build', ['sass','images']);
+gulp.task('welcome', function(){
+	return sass(config.sass2)
+	.pipe(prefix({
+		browsers: ['last 2 versions'],
+		cascade: true
+	}))
+	.on("error", notify.onError({
+		message: 'Error: <%= error.message %>'
+	}))
+	.pipe(csso())
+	.pipe(gulp.dest( config.build ))
+	;
+});
 
 gulp.task('watch', function(){
-	gulp.watch('./css/**/*.scss', ['sass']);
+	gulp.watch('./css/**/style.scss', ['sass']);
+	gulp.watch('./css/other/**/*.scss', ['welcome']);
 });
 
 gulp.task('default', ['sass']);

@@ -3,6 +3,7 @@ $sb: $unit * 4;
 $sbpush: $sb + 1;
 $shadow: rgba(40, 40, 40, 0.4)0 3px 10px 2px;
 $border-green: solid 0.125rem $bright-green;
+$transition: all 0.3s ease-in-out;
 
 
 .flex{
@@ -43,6 +44,17 @@ a{
 .h_holder{
 	width: 100%;
 	background-color: rgba(lighten($dark-green,10%),$trans);
+}
+
+.row-5{
+
+	>div{
+		margin: 0 0.5rem;
+		flex: 1 18%;
+		min-width: 10rem;
+		max-width: calc(20% - 2rem);
+		margin-bottom: 1rem;
+	}
 }
 
 h1{
@@ -198,13 +210,70 @@ nav{
 	}
 
 	.controls{
-		flex: 0 $unit * 6;
+		flex: 0 $unit * 7;
 		border-left: $border-green;
 		justify-content: space-around;
 		align-items: center;
-		padding: 0 2rem;
+		padding: 0 2rem 0 1rem;
 		
 	}
+}
+
+
+.seek_bar{
+	position: fixed;
+	width: 100%;
+	bottom: $unit;
+	left: 0;
+	padding-left: $sb;
+	z-index: 20;
+	height: 6px;
+	transition: $transition;
+
+	&:hover{
+		height: 0.75rem;
+		
+		.seek-main .ui-slider .ui-slider-handle{
+			height: 1.25rem;
+		}
+	}
+
+	.seek-main{
+		position: relative;
+		height: 100%;
+
+		.ui-slider{
+			width: 100%;
+			height: 100%;
+			//background-color: rgba($mid-green-2,1);
+			position: relative;
+			z-index: 5;
+
+			.ui-slider-handle{
+				height: 6px;
+				width: 0.75rem;
+				position: absolute;
+				background-color: $light-grey;
+				//transform: translateY(-50%);
+				box-shadow: $shadow;
+				bottom: 0;
+				transition: height 0.3s ease-in-out;
+			}
+
+		}
+	}
+
+	.load_progress{
+		position: absolute;
+		height: 100%;
+		width: 0%;
+		left: 0;
+		top: 0;
+		background-color: rgba($mid-green-2,1);
+		transition: $transition;
+		z-index: 0;
+	}
+
 }
 
 main{
@@ -297,16 +366,7 @@ main{
 	}
 }
 
-.row-5{
 
-	>div{
-		margin: 0 0.5rem;
-		flex: 1 18%;
-		min-width: 10rem;
-		max-width: calc(20% - 2rem);
-		margin-bottom: 1rem;
-	}
-}
 
 .icon{
 	height: 2.5rem;
@@ -341,64 +401,16 @@ main{
 	background-image: url(../../media/icons/rpt.svg);
 }
 
+.icon-shuffle:before{
+	background-image: url(../../media/icons/shuffle.svg);
+}
+
+.icon-vol:before{
+	background-image: url(../../media/icons/vol.svg);
+}
+
 .icon-arrow:before{
 	background-image: url(../../media/icons/play.svg);
 	height: 1rem;
 	width: 1rem;
-}
-$transition: all 0.3s ease-in-out;
-.seek_bar{
-	position: fixed;
-	width: 100%;
-	bottom: $unit;
-	left: 0;
-	padding-left: $sb;
-	z-index: 20;
-	height: 6px;
-	transition: $transition;
-
-	&:hover{
-		height: 0.75rem;
-		
-		.seek-main .ui-slider .ui-slider-handle{
-			height: 1.25rem;
-		}
-	}
-
-	.seek-main{
-		position: relative;
-		height: 100%;
-
-		.ui-slider{
-			width: 100%;
-			height: 100%;
-			//background-color: rgba($mid-green-2,1);
-			position: relative;
-			z-index: 5;
-
-			.ui-slider-handle{
-				height: 6px;
-				width: 0.75rem;
-				position: absolute;
-				background-color: $light-grey;
-				//transform: translateY(-50%);
-				box-shadow: $shadow;
-				bottom: 0;
-				transition: height 0.3s ease-in-out;
-			}
-
-		}
-	}
-
-	.load_progress{
-		position: absolute;
-		height: 100%;
-		width: 0%;
-		left: 0;
-		top: 0;
-		background-color: rgba($mid-green-2,1);
-		transition: $transition;
-		z-index: 0;
-	}
-
 }

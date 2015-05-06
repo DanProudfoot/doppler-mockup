@@ -23,27 +23,42 @@ else {
 Howler.ctx.destination.channelCountMode = "explicit";
 Howler.ctx.destination.channelInterpretation = "discrete";
 
-//console.log(Howler.ctx.destination.maxChannelCount); // Log available output channels. Firefox just doesn't heed this.
+console.log(Howler.ctx.destination.maxChannelCount + " Channels Available"); // Log available output channels. Firefox just doesn't heed this.
 
 pauseButton.hide();
-
-// var music0 = new Howl({
-// 	src: [path + audioSource[3]],
-// 	preload: true,
-// });
-
-// var music1 = new Howl({
-// 	src: [path + audioSource[0]],
-// 	preload: false,
-// });
 
 
 // The actual stuff
 
+var playlist = [{}]; //Holds the current playlist
 
-var Song = function(playlistIndex){
+function Track(name, album, artist, path){
+	// Create track item, with useful data
+	this.name = name;
+	this.album = album;
+	this.artist = artist;
+	this.path = path;
+}
+
+var pushIndex = 0; 
+function pushToPlaylist(track, album, artist, path){
+	window["track" + pushIndex] = new Track(track, album, artist, path);
+	// Todo: Allow switching order
+	playlist.push(
+		{pushIndex: track}
+	);
+	pushIndex++;
+}
+
+pushToPlaylist("Routine","Hand Cannot Erase","Steven Wilson","music_storage/sw/hand/routine.m4a");
+
+console.log(playlist);
+
+
+var Song = function(src){
+	var self = this;
 	var setSong = new Howl({
-		src: [path + audioSource[playlistIndex]],
+		src: [src],
 		preload:true
 	})
 	var stopSong = function(){
@@ -55,13 +70,12 @@ var Song = function(playlistIndex){
 	}
 }
 
-var currentSong = Song(2).setSong;
+var currentSong = new Song(2).setSong;
 
-$('header').click(function(){
-	var currentSong = Song(2).stopSong;
-	console.log("HEader");
+forwardButton.click(function(){
+	Song(2).stopSong;
+
 })
-
 
 var loadPercentage = setInterval(function(){
 	console.log(Math.floor(loadPerc*100) + "%");
